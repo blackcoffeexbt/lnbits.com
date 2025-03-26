@@ -114,26 +114,6 @@
       border: none;
       /* Ensure no borders */
     }
-
-    .framework-card {
-      box-shadow: 0 4px 15px rgba(255, 30, 230, 0.1);
-      height: 100%;
-    }
-    
-    .framework-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(255, 30, 230, 0.2);
-    }
-    
-    .framework-logo img:hover {
-      transform: scale(1.05);
-    }
-    
-    .framework-header {
-      border-bottom: 1px solid rgba(255, 30, 230, 0.2);
-      padding-bottom: 15px;
-      margin-bottom: 20px;
-    }
   </style>
 
 </head>
@@ -545,24 +525,62 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <h2 class="q-pb-lg">Bootstrap your lightning payments.</h2>
+            <div class="ud-section-title text-center mx-auto">
+              <h2>Bootstrap your lightning payments</h2>
+              <p class="ud-hero-desc">
+                One API to rule them all.
+                <br />Runs on ANY Lighting Network funding source
+              </p>
+            </div>
+
             <div class="row">
               <div class="col gt-sm">
                 <img src="./assets/images/hero/bitcoin-funding-sources.png" style="opacity: 0.8;margin-top:20px">
               </div>
               <div class="col">
-                <h6 class="q-pb-lg">
-                  One API to rule them all.
-                  <br />Runs on ANY Lighting Network funding source
-                </h6>
-                <p>
-                  ✔️ Free and open-source
-                  <br />✔️ 4 years of real world use and hardening
-                  <br />✔️ Cutting edge, with new funding sources being added regularly.
-                  <br />✔️ NOSTR and LNURL native: create boltcards, nostr relays, sell NIP05s, vouchers, etc.
-                  <br />✔️ No more refactoring code for developers; changing your funding source is trivial.
-                  <br />✔️ Eyes on the code; huge user and developer community keeping LNbits updated.
-                </p>
+                <q-list padding class="text-white q-mt-md">
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-icon color="pink" name="check" />
+                    </q-item-section>
+                    <q-item-section>Free and open-source</q-item-section>
+                  </q-item>
+
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-icon color="pink" name="check" />
+                    </q-item-section>
+                    <q-item-section>Real world use and hardening</q-item-section>
+                  </q-item>
+
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-icon color="pink" name="check" />
+                    </q-item-section>
+                    <q-item-section>Cutting edge, with new funding sources being added regularly</q-item-section>
+                  </q-item>
+
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-icon color="pink" name="check" />
+                    </q-item-section>
+                    <q-item-section>NOSTR and LNURL native: create boltcards, Nostr relays, sell Nostr NIP05 identifiers, Lightning vouchers and more.</q-item-section>
+                  </q-item>
+
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-icon color="pink" name="check" />
+                    </q-item-section>
+                    <q-item-section>No more refactoring code for developers; changing your funding source is trivial</q-item-section>
+                  </q-item>
+
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-icon color="pink" name="check" />
+                    </q-item-section>
+                    <q-item-section>Eyes on the code; huge user and developer community keeping LNbits updated</q-item-section>
+                  </q-item>
+                </q-list>
               </div>
 
             </div>
@@ -707,59 +725,44 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="ud-section-title text-center mx-auto">
-              <h2 style="color: white;">Frameworks used in LNbits</h2>
-              <p class="ud-hero-desc">Built with modern, high-performance technologies</p>
-            </div>
+            <center>
+              <h2 class="q-pb-lg" style="color: white;">Frameworks used in LNbits.</h2>
+              <br />
+            </center>
           </div>
         </div>
         <div class="q-pa-md example-row-stacked-to-horizontal">
-          <div class="row justify-center">
-            <div class="col-12 col-md-6 q-mb-md q-px-md">
-              <q-card class="my-card framework-card" 
-                style="width:100%;
-                       border: 2px solid rgb(255, 30, 230);
-                       background-color: rgba(13, 16, 23, 0.9);
-                       transition: all 0.3s ease;">
-                <q-card-section class="text-center">
-                  <div class="framework-header">
-                    <h5 style="color:rgb(255, 30, 230); margin: 0;">FRONTEND</h5>
-                    <h3 style="color:rgb(255, 30, 230); margin: 10px 0;">
-                      Quasar <small style="opacity: 0.8;">(VueJS)</small>
-                    </h3>
-                  </div>
-                  <p style="color:rgb(255, 30, 230); margin: 20px 0;">
+
+          <div class="row">
+            <div class="col-12 col-md-6 q-mb-md">
+              <q-card class="my-card"
+                style="width:100%;border: 2px solid rgb(255, 30, 230);background-color: rgba(13, 16, 23, 0.8);">
+                <q-card-section>
+                  <h5 style="color:rgb(255, 30, 230);">FRONTEND:</h5>
+                  <h3 style="color:rgb(255, 30, 230);">Quasar <small>(VueJS)</small></h3>
+                  <p style="color:rgb(255, 30, 230);">
                     Front-end framework with VueJS components for high-performance,
-                    responsive websites, PWA, SSR, Mobile and Desktop apps.
+                    responsive websites, PWA, SSR, Mobile and Desktop apps,
                   </p>
-                  <a href="https://quasar.dev/" target="_blank" class="framework-logo">
-                    <img style="max-height:78px; transition: transform 0.3s ease;" 
-                         src="assets/images/frameworks/quasar.png" 
-                         alt="Quasar Framework" />
+                  <br />
+                  <a href="https://quasar.dev/" target="_blank">
+                    <img style="max-height:78px" src="assets/images/frameworks/quasar.png" alt="fastapi" />
                   </a>
                 </q-card-section>
               </q-card>
             </div>
-            <div class="col-12 col-md-6 q-mb-md q-px-md">
-              <q-card class="my-card framework-card"
-                style="width:100%;
-                       border: 2px solid rgb(255, 30, 230);
-                       background-color: rgba(13, 16, 23, 0.9);
-                       transition: all 0.3s ease;">
-                <q-card-section class="text-center">
-                  <div class="framework-header">
-                    <h5 style="color:rgb(255, 30, 230); margin: 0;">BACKEND</h5>
-                    <h3 style="color:rgb(255, 30, 230); margin: 10px 0;">
-                      FastAPI <small style="opacity: 0.8;">(Python)</small>
-                    </h3>
-                  </div>
-                  <p style="color:rgb(255, 30, 230); margin: 20px 0;">
+            <div class="col-12 col-md-6 q-mb-md">
+              <q-card class="my-card"
+                style="width:100%;border: 2px solid rgb(255, 30, 230);background-color: rgba(13, 16, 23, 0.8);">
+                <q-card-section>
+                  <h5 style="color:rgb(255, 30, 230);">BACKEND:</h5>
+                  <h3 style="color:rgb(255, 30, 230);">FastAPI <small>(Python)</small></h3>
+                  <p style="color:rgb(255, 30, 230);">
                     LNbits uses FastAPI, a modern, high-performance Python API framework, that's easy to build on.
                   </p>
-                  <a href="https://fastapi.tiangolo.com/" target="_blank" class="framework-logo">
-                    <img style="max-height:78px; transition: transform 0.3s ease;" 
-                         src="assets/images/frameworks/fastapilogo.png" 
-                         alt="FastAPI Framework" />
+                  <br />
+                  <a href="https://fastapi.tiangolo.com/" target="_blank">
+                    <img style="max-height:78px" src="assets/images/frameworks/fastapilogo.png" alt="fastapi" />
                   </a>
                 </q-card-section>
               </q-card>
