@@ -114,6 +114,26 @@
       border: none;
       /* Ensure no borders */
     }
+
+    .framework-card {
+      box-shadow: 0 4px 15px rgba(255, 30, 230, 0.1);
+      height: 100%;
+    }
+    
+    .framework-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 30, 230, 0.2);
+    }
+    
+    .framework-logo img:hover {
+      transform: scale(1.05);
+    }
+    
+    .framework-header {
+      border-bottom: 1px solid rgba(255, 30, 230, 0.2);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
   </style>
 
 </head>
@@ -687,44 +707,59 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <center>
-              <h2 class="q-pb-lg" style="color: white;">Frameworks used in LNbits.</h2>
-              <br />
-            </center>
+            <div class="ud-section-title text-center mx-auto">
+              <h2 style="color: white;">Frameworks used in LNbits</h2>
+              <p class="ud-hero-desc">Built with modern, high-performance technologies</p>
+            </div>
           </div>
         </div>
         <div class="q-pa-md example-row-stacked-to-horizontal">
-
-          <div class="row">
-            <div class="col-12 col-md-6 q-mb-md">
-              <q-card class="my-card"
-                style="width:100%;border: 2px solid rgb(255, 30, 230);background-color: rgba(13, 16, 23, 0.8);">
-                <q-card-section>
-                  <h5 style="color:rgb(255, 30, 230);">FRONTEND:</h5>
-                  <h3 style="color:rgb(255, 30, 230);">Quasar <small>(VueJS)</small></h3>
-                  <p style="color:rgb(255, 30, 230);">
+          <div class="row justify-center">
+            <div class="col-12 col-md-6 q-mb-md q-px-md">
+              <q-card class="my-card framework-card" 
+                style="width:100%;
+                       border: 2px solid rgb(255, 30, 230);
+                       background-color: rgba(13, 16, 23, 0.9);
+                       transition: all 0.3s ease;">
+                <q-card-section class="text-center">
+                  <div class="framework-header">
+                    <h5 style="color:rgb(255, 30, 230); margin: 0;">FRONTEND</h5>
+                    <h3 style="color:rgb(255, 30, 230); margin: 10px 0;">
+                      Quasar <small style="opacity: 0.8;">(VueJS)</small>
+                    </h3>
+                  </div>
+                  <p style="color:rgb(255, 30, 230); margin: 20px 0;">
                     Front-end framework with VueJS components for high-performance,
-                    responsive websites, PWA, SSR, Mobile and Desktop apps,
+                    responsive websites, PWA, SSR, Mobile and Desktop apps.
                   </p>
-                  <br />
-                  <a href="https://quasar.dev/" target="_blank">
-                    <img style="max-height:78px" src="assets/images/frameworks/quasar.png" alt="fastapi" />
+                  <a href="https://quasar.dev/" target="_blank" class="framework-logo">
+                    <img style="max-height:78px; transition: transform 0.3s ease;" 
+                         src="assets/images/frameworks/quasar.png" 
+                         alt="Quasar Framework" />
                   </a>
                 </q-card-section>
               </q-card>
             </div>
-            <div class="col-12 col-md-6 q-mb-md">
-              <q-card class="my-card"
-                style="width:100%;border: 2px solid rgb(255, 30, 230);background-color: rgba(13, 16, 23, 0.8);">
-                <q-card-section>
-                  <h5 style="color:rgb(255, 30, 230);">BACKEND:</h5>
-                  <h3 style="color:rgb(255, 30, 230);">FastAPI <small>(Python)</small></h3>
-                  <p style="color:rgb(255, 30, 230);">
+            <div class="col-12 col-md-6 q-mb-md q-px-md">
+              <q-card class="my-card framework-card"
+                style="width:100%;
+                       border: 2px solid rgb(255, 30, 230);
+                       background-color: rgba(13, 16, 23, 0.9);
+                       transition: all 0.3s ease;">
+                <q-card-section class="text-center">
+                  <div class="framework-header">
+                    <h5 style="color:rgb(255, 30, 230); margin: 0;">BACKEND</h5>
+                    <h3 style="color:rgb(255, 30, 230); margin: 10px 0;">
+                      FastAPI <small style="opacity: 0.8;">(Python)</small>
+                    </h3>
+                  </div>
+                  <p style="color:rgb(255, 30, 230); margin: 20px 0;">
                     LNbits uses FastAPI, a modern, high-performance Python API framework, that's easy to build on.
                   </p>
-                  <br />
-                  <a href="https://fastapi.tiangolo.com/" target="_blank">
-                    <img style="max-height:78px" src="assets/images/frameworks/fastapilogo.png" alt="fastapi" />
+                  <a href="https://fastapi.tiangolo.com/" target="_blank" class="framework-logo">
+                    <img style="max-height:78px; transition: transform 0.3s ease;" 
+                         src="assets/images/frameworks/fastapilogo.png" 
+                         alt="FastAPI Framework" />
                   </a>
                 </q-card-section>
               </q-card>
