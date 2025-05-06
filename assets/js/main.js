@@ -32,20 +32,20 @@
     }
   };
 
-  //===== close navbar-collapse when a  clicked
-  let navbarToggler = document.querySelector(".navbar-toggler");
-  const navbarCollapse = document.querySelector(".navbar-collapse");
+  // //===== close navbar-collapse when a  clicked
+  // let navbarToggler = document.querySelector(".navbar-toggler");
+  // const navbarCollapse = document.querySelector(".navbar-collapse");
 
-  document.querySelectorAll(".ud-menu-scroll").forEach((e) =>
-    e.addEventListener("click", () => {
-      navbarToggler.classList.remove("active");
-      navbarCollapse.classList.remove("show");
-    })
-  );
-  navbarToggler.addEventListener("click", function () {
-    navbarToggler.classList.toggle("active");
-    navbarCollapse.classList.toggle("show");
-  });
+  // document.querySelectorAll(".ud-menu-scroll").forEach((e) =>
+  //   e.addEventListener("click", () => {
+  //     navbarToggler.classList.remove("active");
+  //     navbarCollapse.classList.remove("show");
+  //   })
+  // );
+  // navbarToggler.addEventListener("click", function () {
+  //   navbarToggler.classList.toggle("active");
+  //   navbarCollapse.classList.toggle("show");
+  // });
 
   // ===== submenu
   const submenuButton = document.querySelectorAll(".nav-item-has-children");
@@ -84,9 +84,9 @@
     return (-c / 2) * (t * (t - 2) - 1) + b;
   };
 
-  document.querySelector(".back-to-top").onclick = () => {
-    scrollTo(document.documentElement);
-  };
+  // document.querySelector(".back-to-top").onclick = () => {
+  //   scrollTo(document.documentElement);
+  // };
 
 })();
 
@@ -169,3 +169,37 @@ function createCanvasAndLightning() {
 }
 // turned off lightning bolts as its breaking saas
 //createCanvasAndLightning();
+
+// ====== Mobile drawer menu logic ======
+document.addEventListener("DOMContentLoaded", function() {
+  var burgerBtn = document.getElementById("burger-menu-btn");
+  var drawer = document.getElementById("mobile-drawer");
+  var closeBtn = document.getElementById("close-drawer-btn");
+  var backdrop = document.getElementById("drawer-backdrop");
+
+  function openDrawer() {
+    if (drawer && backdrop) {
+      drawer.classList.add("open");
+      backdrop.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+  }
+  function closeDrawer() {
+    if (drawer && backdrop) {
+      drawer.classList.remove("open");
+      backdrop.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+  }
+
+  if (burgerBtn && drawer && closeBtn && backdrop) {
+    burgerBtn.addEventListener("click", openDrawer);
+    closeBtn.addEventListener("click", closeDrawer);
+    backdrop.addEventListener("click", closeDrawer);
+
+    // Close drawer when clicking a menu link
+    drawer.querySelectorAll("a").forEach(function(link) {
+      link.addEventListener("click", closeDrawer);
+    });
+  }
+});

@@ -114,6 +114,131 @@
       border: none;
       /* Ensure no borders */
     }
+
+    /* Mobile Drawer Slide-in Styles */
+    #mobile-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80vw;
+      max-width: 320px;
+      height: 100vh;
+      background: #1F2234;
+      color: white;
+      z-index: 9999;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      will-change: transform;
+      display: block; /* always block, we use transform to hide/show */
+      pointer-events: none; /* prevent interaction when hidden */
+      opacity: 0;
+    }
+    #mobile-drawer.open {
+      transform: translateX(0);
+      pointer-events: auto;
+      opacity: 1;
+    }
+    #drawer-backdrop {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.3);
+      z-index: 9998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      display: block;
+    }
+    #drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (min-width: 992px) {
+      .lt-md { display: none !important; }
+    }
+    @media (max-width: 991.98px) {
+      .gt-sm { display: none !important; }
+    }
+
+    .mobile-menu-list {
+      list-style: none;
+      padding: 0 1.5rem;
+      margin: 0;
+    }
+
+    .mobile-menu-list li {
+      margin-bottom: 1.2rem;
+    }
+
+    .mobile-menu-list a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.18rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      padding: 0.5rem 0.2rem;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .mobile-menu-list a:hover,
+    .mobile-menu-list a:focus {
+      background: #292b3a;
+      color: #FF1EE6;
+    }
+
+    .mobile-menu-launch-btn {
+      padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    }
+
+    .mobile-menu-launch-btn a {
+      display: block;
+      width: 100%;
+      background: #FF1EE6;
+      color: #1F2234;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.15rem;
+      padding: 0.85rem 0;
+      border-radius: 28px;
+      text-decoration: none;
+      box-shadow: 0 2px 8px 0 rgba(255,30,230,0.08);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .mobile-menu-launch-btn a:hover,
+    .mobile-menu-launch-btn a:focus {
+      background: #e600c7;
+      color: #fff;
+    }
+
+    .mobile-menu-github-btn {
+      padding: 0 1.5rem 1.2rem 1.5rem;
+    }
+    .mobile-menu-github-btn a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.08rem;
+      border-radius: 28px;
+      padding: 0.7rem 0;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      border: 1px solid #fff;
+      transition: background 0.18s;
+    }
+    .mobile-menu-github-btn a:hover,
+    .mobile-menu-github-btn a:focus {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    @media (min-width: 992px) {
+      .mobile-menu-github-btn { display: none !important; }
+    }
   </style>
 
 </head>
@@ -131,6 +256,29 @@
                 <img src="assets/images/logo/logo.svg" class="gt-sm" style="width: 180px" alt="Logo" />
                 <img src="assets/images/logo/logo.svg" class="lt-md q-pt-sm" style="width: 100px" alt="Logo" />
               </a>
+              <!-- Mobile Drawer Menu -->
+              <div id="mobile-drawer" class="lt-md">
+                <div style="padding:1.5rem 1rem 1rem 1rem; display:flex; justify-content:flex-end; align-items:center;">
+                  <button id="close-drawer-btn" style="background:none; border:none; color:white; font-size:2rem;">&times;</button>
+                </div>
+                <ul class="mobile-menu-list">
+                  <li><a class="ud-menu-scroll" href="#extensions">Extensions</a></li>
+                  <li><a class="ud-menu-scroll" href="#getting-started">Getting Started</a></li>
+                  <li><a class="ud-menu-scroll" href="#frameworks">Frameworks</a></li>
+                  <li><a href="https://news.lnbits.com/">News</a></li>
+                  <li><a href="https://demo.lnbits.com/tipjar/4">Support LNbits 💕</a></li>
+                </ul>
+                <div class="mobile-menu-launch-btn">
+                  <a href="https://my.lnbits.com">Launch</a>
+                </div>
+                <div class="mobile-menu-github-btn">
+                  <a href="https://github.com/lnbits/lnbits#lnbits" target="_blank" rel="noopener" aria-label="Github">
+                    <img src="assets/images/github_white.png" alt="Github" style="height: 22px; width: 22px; vertical-align: middle; margin-right: 8px;">
+                    Github
+                  </a>
+                </div>
+              </div>
+              <div id="drawer-backdrop" class="lt-md"></div>
               <div class="navbar-collapse" id="mainMenu">
                 <ul id="nav" class="navbar-nav mx-auto">
                   <li class="nav-item">
@@ -174,6 +322,10 @@
                 </div>
                 <q-tooltip>Checkout the repo</q-tooltip>
               </q-btn>
+                                        <!-- Burger menu button for mobile -->
+                                        <button id="burger-menu-btn" class="lt-md q-ml-sm" aria-label="Open menu" style="background: none; border: none; font-size: 2rem; color: white;">
+                                          <span class="material-icons q-pt-sm">menu</span>
+                                        </button>
             </div>
             </nav>
           </div>
