@@ -46,28 +46,40 @@ window.addEventListener("DOMContentLoaded", () => {
   (function initHeroRotation() {
     const heroSlides = [
       {
+        id: "slide1",
         img: "assets/images/hero/bitcoin-accounts.png",
         embedLink: "b7Ou7XtqtRI",
-        title: "User/Wallet System",
-        time: "(43 secs)"
+        titleKey: "hero.slide1.title",
+        timeKey: "hero.slide1.time",
+        titleFallback: "User/Wallet System",
+        timeFallback: "(43 secs)"
       },
       {
+        id: "slide2",
         img: "assets/images/hero/bitcoin-extensions.png",
         embedLink: "ymq_BXN4lu0",
-        title: "50+ Extensions",
-        time: "(38 secs)"
+        titleKey: "hero.slide2.title",
+        timeKey: "hero.slide2.time",
+        titleFallback: "50+ Extensions",
+        timeFallback: "(38 secs)"
       },
       {
+        id: "slide3",
         img: "assets/images/hero/lnbits-node-management.png",
         embedLink: "LMs4bFrvy_Y",
-        title: "Admin Toolting",
-        time: "(48 secs)"
+        titleKey: "hero.slide3.title",
+        timeKey: "hero.slide3.time",
+        titleFallback: "Admin Tooling",
+        timeFallback: "(48 secs)"
       },
       {
+        id: "slide4",
         img: "assets/images/hero/lnbits-api-sdk.png",
         embedLink: "b1a5XshX5dA",
-        title: "Supercharged API/SDK",
-        time: "(38 secs)"
+        titleKey: "hero.slide4.title",
+        timeKey: "hero.slide4.time",
+        titleFallback: "Supercharged API/SDK",
+        timeFallback: "(38 secs)"
       }
     ];
 
@@ -75,6 +87,19 @@ window.addEventListener("DOMContentLoaded", () => {
     let heroTimer = null;
 
     const tiles = Array.from(document.querySelectorAll(".ln-btn-tile"));
+    const heroSlideMap = heroSlides.reduce((acc, slide, index) => {
+      acc[slide.id] = index;
+      return acc;
+    }, {});
+
+    function t(key, fallback) {
+      const i18n = window.LNbitsI18n;
+      if (!i18n || typeof i18n.t !== "function") {
+        return fallback || key;
+      }
+      const value = i18n.t(key);
+      return value || fallback || key;
+    }
 
     function getHeroProxy() {
       const root = document.querySelector("#q-app");
@@ -97,10 +122,12 @@ window.addEventListener("DOMContentLoaded", () => {
         return false;
       }
       const slide = heroSlides[index];
+      const title = t(slide.titleKey, slide.titleFallback);
+      const time = t(slide.timeKey, slide.timeFallback);
       vm.slideimg = slide.img;
       vm.embedLink = slide.embedLink;
-      vm.vidtitle = slide.title;
-      vm.vidtime = slide.time;
+      vm.vidtitle = title;
+      vm.vidtime = time;
       if (pause) {
         stopHeroRotation();
       }
@@ -126,7 +153,8 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     const readyCheck = setInterval(() => {
-      if (applyHeroSlide(0, false)) {
+      const hasProxy = applyHeroSlide(0, false);
+      if (hasProxy) {
         clearInterval(readyCheck);
         startHeroRotation();
       }
@@ -136,6 +164,12 @@ window.addEventListener("DOMContentLoaded", () => {
       tile.addEventListener("mouseenter", () => stopHeroRotation());
       tile.addEventListener("mouseleave", () => startHeroRotation());
     });
+
+    if (window.LNbitsI18n && typeof window.LNbitsI18n.onChange === "function") {
+      window.LNbitsI18n.onChange(() => {
+        applyHeroSlide(heroIndex, false);
+      });
+    }
   })();
 
   (function initContributorsMarquee() {
@@ -182,12 +216,18 @@ window.addEventListener("DOMContentLoaded", () => {
       const forksText = formatCount(metricsState.forks);
       const contributorsText = formatCount(metricsState.contributors);
 
+      const i18n = window.LNbitsI18n;
+      const translatedLabel = i18n && typeof i18n.t === "function"
+        ? i18n.t("contributors.label")
+        : "";
+      const contributorsLabel = translatedLabel || "Contributors";
+
       metrics.innerHTML =
         "<span class=\"ln-metric\"><i class=\"lni lni-star-filled\"></i>" + starsText + "</span>" +
         "<span>|</span>" +
         "<span class=\"ln-metric\"><i class=\"lni lni-network\"></i>" + forksText + "</span>" +
         "<span>|</span>" +
-        "<span class=\"ln-metric\">Contributors:</span>";
+        "<span class=\"ln-metric\">" + contributorsLabel + ":</span>";
     }
 
     function renderContributors(items) {
@@ -237,6 +277,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
       const duration = Math.max(40, items.length * 1.1);
       track.style.animationDuration = duration + "s";
+      if (window.innerWidth <= 767) {
+        track.style.animationDuration = duration * 1.6 + "s";
+      }
     }
 
     fetch("https://api.github.com/repos/lnbits/lnbits", {
@@ -272,5 +315,11 @@ window.addEventListener("DOMContentLoaded", () => {
       .catch(() => {
         // Silently fail if rate limited or offline.
       });
+
+    if (window.LNbitsI18n && typeof window.LNbitsI18n.onChange === "function") {
+      window.LNbitsI18n.onChange(() => {
+        setMetricsText(metricsState.stars, metricsState.forks, metricsState.contributors);
+      });
+    }
   })();
 });

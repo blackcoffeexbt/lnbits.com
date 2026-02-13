@@ -287,6 +287,49 @@ body.body--dark {
   backdrop-filter: blur(8px);
 }
 
+.ln-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ln-lang-qselect .q-field__control {
+  border: none;
+  border-radius: 999px;
+  background: rgba(12, 14, 24, 0.3);
+  min-height: 36px;
+  padding: 0 8px 0 14px;
+  color: var(--ln-text);
+}
+
+.ln-lang-qselect .q-field__native,
+.ln-lang-qselect .q-field__input {
+  min-height: 36px;
+  line-height: 36px;
+  text-align: center;
+  color: var(--ln-text);
+}
+
+.ln-lang-qselect .q-field__append,
+.ln-lang-qselect .q-field__prepend {
+  color: var(--ln-text);
+}
+
+.ln-lang-qselect.q-field--focused .q-field__control {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.ln-lang-popup {
+  background: rgba(12, 14, 24, 0.96);
+  color: var(--ln-text);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ln-lang-popup .q-item {
+  color: var(--ln-text);
+}
+
 .ln-btn-outline:hover {
   border-color: var(--ln-pink) !important;
   color: #ffffff !important;

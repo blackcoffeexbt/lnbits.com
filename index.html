@@ -6,26 +6,24 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>
-    LNbits | Free Open Source Bitcoin Lightning Wallet Accounts System
-  </title>
+  <title data-i18n="meta.title">LNbits | Free Open Source Bitcoin Lightning Wallet Accounts System</title>
 
   <!-- Primary Meta Tags -->
-  <meta name="title" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" />
-  <meta name="description" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" />
+  <meta name="title" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.title" />
+  <meta name="description" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.description" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://lnbits.com" />
-  <meta property="og:title" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" />
-  <meta property="og:description" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" />
+  <meta property="og:title" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.og_title" />
+  <meta property="og:description" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.og_description" />
   <meta property="og:image" content="https://raw.githubusercontent.com/lnbits/lnbits.com/refs/heads/main/assets/images/thumb.png" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://lnbits.com" />
-  <meta property="twitter:title" content="LNBits - Free Open Source Bitcoin Lightning Wallet Accounts System" />
-  <meta property="twitter:description" content="LNBits - Free Open Source Bitcoin Lightning Wallet Accounts System" />
+  <meta property="twitter:title" content="LNBits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.twitter_title" />
+  <meta property="twitter:description" content="LNBits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.twitter_description" />
   <meta property="twitter:image" content="https://raw.githubusercontent.com/lnbits/lnbits.com/refs/heads/main/assets/images/thumb.png" />
 
   <!--====== Favicon Icon ======-->
@@ -57,41 +55,53 @@
               <div class="navbar-collapse" id="mainMenu">
                 <ul id="nav" class="navbar-nav mx-auto">
                   <li class="nav-item">
-                    <a class="ud-menu-scroll" href="#extensions">Extensions</a>
+                    <a class="ud-menu-scroll" href="#extensions" data-i18n="nav.extensions">Extensions</a>
                   </li>
                   <li class="nav-item">
-                    <a class="ud-menu-scroll" href="#frameworks">Frameworks</a>
+                    <a class="ud-menu-scroll" href="#frameworks" data-i18n="nav.frameworks">Frameworks</a>
                   </li>
                   <li class="nav-item">
-                    <a class="ud-menu-scroll" href="#connect">Connect</a>
+                    <a class="ud-menu-scroll" href="#connect" data-i18n="nav.connect">Connect</a>
                   </li>
                   <li class="nav-item">
-                    <a href="https://news.lnbits.com/" title="LNbits news">News</a>
+                    <a href="https://news.lnbits.com/" title="LNbits news" data-i18n="nav.news" data-i18n-attr="title:nav.news_title">News</a>
                   </li>
                 </ul>
               </div>
 
-              <div float-right>
+              <div class="ln-header-actions">
                 <q-btn
                   no-caps
                   text-color="black"
                   type="a"
                   href="https://my.lnbits.com"
-                  label="Launch"
                   size="md"
                   class="q-mr-xs gt-sm ln-btn-primary"
                 >
-                <q-tooltip>Launch your own LNbits instance</q-tooltip>
+                <span data-i18n="button.launch">Launch</span>
+                <q-tooltip data-i18n="tooltip.launch">Launch your own LNbits instance</q-tooltip>
               </q-btn>
+
               <q-btn no-caps type="a" href="https://github.com/lnbits/lnbits#lnbits" rounded outline color="white" class="ln-btn-outline">
                 <div>
-                  <span>Github</span>
+                  <span data-i18n="button.github">Github</span>
                   <q-icon size="md">
                     <img src="assets/images/github_white.png" style="width: 24px; height: 24px;" loading="lazy" decoding="async">
                   </q-icon>
                 </div>
-                <q-tooltip>Checkout the repo</q-tooltip>
+                <q-tooltip data-i18n="tooltip.github">Checkout the repo</q-tooltip>
               </q-btn>
+              <q-select
+                v-model="activeLang"
+                :options="langOptions"
+                option-value="code"
+                option-label="flag"
+                dense
+                borderless
+                class="ln-lang-qselect q-ml-xs"
+                popup-content-class="ln-lang-popup"
+                :aria-label="langLabel"
+              ></q-select>
             </div>
             </nav>
           </div>
@@ -107,13 +117,10 @@
           <div class="col-lg-12">
             <div class="ud-hero-content">
               <h1 class="ud-hero-title" style="margin-bottom: 0px">
-
-                The world's most powerful suite of bitcoin tools.
-
+                <span data-i18n="hero.title">The world's most powerful suite of bitcoin tools.</span>
               </h1>
               <p class="ud-hero-desc mb-1">
-                Run for yourself, for others, or as part of a
-                stack.
+                <span data-i18n="hero.subtitle">Run for yourself, for others, or as part of a stack.</span>
               </p>
 
             </div>
@@ -123,11 +130,11 @@
                 text-color="black"
                 type="a"
                 href="https://my.lnbits.com"
-                label="Launch"
                 size="lg"
                 class="ln-btn-primary"
               >
-              <q-tooltip>Launch your own LNbits instance</q-tooltip>
+              <span data-i18n="button.launch">Launch</span>
+              <q-tooltip data-i18n="tooltip.launch">Launch your own LNbits instance</q-tooltip>
             </q-btn>
               <q-btn
               no-caps
@@ -135,11 +142,11 @@
                 text-color="black"
                 type="a"
                 href="https://extensions.lnbits.com"
-                label="Extensions"
                 class="q-ml-sm gt-sm ln-btn-outline"
                 size="lg"
               >
-              <q-tooltip>Checkout the extensions in LNbits</q-tooltip>
+              <span data-i18n="button.extensions">Extensions</span>
+              <q-tooltip data-i18n="tooltip.extensions">Checkout the extensions in LNbits</q-tooltip>
             </q-btn>
             <q-btn
             no-caps
@@ -147,11 +154,11 @@
             text-color="black"
             type="a"
             href="https://shop.lnbits.com"
-            label="Store"
             class="q-ml-sm ln-btn-outline"
             size="lg"
             >
-            <q-tooltip>Visit the LNbits web store</q-tooltip>
+            <span data-i18n="button.store">Store</span>
+            <q-tooltip data-i18n="tooltip.store">Visit the LNbits web store</q-tooltip>
           </q-btn>
             </div>
             <div class="container-pic">
@@ -193,12 +200,13 @@
                 <div class="col">
                   <q-btn
                     @mouseover="slideimg = 'assets/images/hero/bitcoin-accounts.png'; embedLink = 'b7Ou7XtqtRI'; vidtitle = 'User/Wallet System';  vidtime = '(43 secs)'"
-                    class="ln-btn-tile">
+                    class="ln-btn-tile"
+                    data-hero-slide="slide1">
                     <div class="row items-center no-wrap">
                       <div class="text-center">
-                        User/Wallet System
+                        <span data-i18n="hero.slide1.title">User/Wallet System</span>
                         <br />
-                        <small>Fully responsive web wallet<br /></small>
+                        <small data-i18n="hero.slide1.subtitle" data-i18n-html="true">Fully responsive web wallet<br /></small>
                       </div>
 
                     </div>
@@ -207,12 +215,13 @@
                 <div class="col">
                   <q-btn
                     @mouseover="slideimg = 'assets/images/hero/bitcoin-extensions.png'; embedLink = 'ymq_BXN4lu0'; vidtitle = '50+ Extensions';  vidtime = '(38 secs)'"
-                    class="ln-btn-tile">
+                    class="ln-btn-tile"
+                    data-hero-slide="slide2">
                     <div class="row items-center no-wrap">
                       <div class="text-center">
-                        50+ extensions
+                        <span data-i18n="hero.slide2.title">50+ Extensions</span>
                         <br />
-                        <small>extension framework<br /></small>
+                        <small data-i18n="hero.slide2.subtitle" data-i18n-html="true">extension framework<br /></small>
                       </div>
 
                     </div>
@@ -220,13 +229,14 @@
                 </div>
                 <div class="col">
                   <q-btn
-                    @mouseover="slideimg = 'assets/images/hero/lnbits-node-management.png'; embedLink = 'LMs4bFrvy_Y'; vidtitle = 'Admin Toolting';  vidtime = '(48 secs)'"
-                    class="ln-btn-tile">
+                    @mouseover="slideimg = 'assets/images/hero/lnbits-node-management.png'; embedLink = 'LMs4bFrvy_Y'; vidtitle = 'Admin Tooling';  vidtime = '(48 secs)'"
+                    class="ln-btn-tile"
+                    data-hero-slide="slide3">
                     <div class="row items-center no-wrap">
                       <div class="text-center">
-                        ADMIN TOOLING
+                        <span data-i18n="hero.slide3.title">Admin Tooling</span>
                         <br />
-                        <small>For LNbits/node/users<br /></small>
+                        <small data-i18n="hero.slide3.subtitle" data-i18n-html="true">For LNbits/node/users<br /></small>
                       </div>
 
                     </div>
@@ -235,12 +245,13 @@
                 <div class="col">
                   <q-btn
                     @mouseover="slideimg = 'assets/images/hero/lnbits-api-sdk.png'; embedLink = 'b1a5XshX5dA'; vidtitle = 'Supercharged API/SDK';  vidtime = '(38 secs)'"
-                    class="ln-btn-tile">
+                    class="ln-btn-tile"
+                    data-hero-slide="slide4">
                     <div class="row items-center no-wrap">
                       <div class="text-center">
-                        Supercharged API/SDK
+                        <span data-i18n="hero.slide4.title">Supercharged API/SDK</span>
                         <br />
-                        <small>LNbits core and extensions<br /></small>
+                        <small data-i18n="hero.slide4.subtitle" data-i18n-html="true">LNbits core and extensions<br /></small>
                       </div>
 
                     </div>
@@ -258,7 +269,7 @@
 
     <section class="ln-contrib-strip">
       <div class="container">
-        <div class="ln-contrib-label" id="ln-repo-metrics">Contributors</div>
+        <div class="ln-contrib-label" id="ln-repo-metrics" data-i18n="contributors.label">Contributors</div>
         <div class="ln-contrib-marquee">
           <div class="ln-contrib-track" id="ln-contrib-track"></div>
         </div>
@@ -270,7 +281,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <h2 class="q-pb-lg">Your Everything App for Payments.</h2>
+            <h2 class="q-pb-lg" data-i18n="features.title">Your Everything App for Payments.</h2>
             <div class="row">
               <div class="col-7  gt-sm" style="align-items: flex-end;display: flex;">
                 <div class="row" style="align-items: flex-end;">
@@ -289,11 +300,11 @@
               </div>
 
               <div class="col">
-<h6 class="q-pb-lg">
+<h6 class="q-pb-lg" data-i18n="features.lead" data-i18n-html="true">
   <br />LNbits is a modular payments platform — a wallet, app store, and automation engine in one.
 </h6>
 
-<p>
+<p data-i18n="features.list_html" data-i18n-html="true">
   ✔️ Point of Sale (shops, cafés, events, mobile vendors)  
   <br />✔️ Online checkout & donation buttons  
   <br />✔️ Nostr zaps, paid posts, and micropayments  
@@ -324,12 +335,11 @@
 
             <div class="row">
               <div class="col">
-                <h2 class="q-pb-lg">LNbits extension universe.</h2>
-                <h6 class="q-pb-lg">
-
+                <h2 class="q-pb-lg" data-i18n="extensions.title">LNbits extension universe.</h2>
+                <h6 class="q-pb-lg" data-i18n="extensions.subtitle">
                   Extend YOUR LNbits to meet YOUR needs.
                 </h6>
-                <p>
+                <p data-i18n="extensions.body" data-i18n-html="true">
                   All non-core features are installed as extensions,
                   reducing your code base and making your LNbits unique to you.
                   <br />
@@ -355,18 +365,18 @@
         <div class="row">
           <div class="col-lg-12">
             <center>
-            <h2 class="q-pb-lg">Bootstrap your lightning payments.</h2>
+            <h2 class="q-pb-lg" data-i18n="bootstrap.title">Bootstrap your lightning payments.</h2>
             </center>
             <div class="row">
               <div class="col gt-sm">
                 <img src="./assets/images/hero/lightning-funding-sources.png" class="ln-funding-logos ln-funding-logos--spaced" loading="lazy" decoding="async">
               </div>
               <div class="col">
-                <h6 class="q-pb-lg">
+                <h6 class="q-pb-lg" data-i18n="bootstrap.subtitle" data-i18n-html="true">
                   One API to rule them all.
                   <br />Runs on ANY Lighting Network funding source
                 </h6>
-                <p>
+                <p data-i18n="bootstrap.list_html" data-i18n-html="true">
                   ✔️ Free and open-source
                   <br />✔️ 6 years of real world use and hardening
                   <br />✔️ Cutting edge, with new funding sources being added regularly.
@@ -391,7 +401,7 @@
         <div class="row">
           <div class="col">
             <center>
-              <h2 class="q-pb-lg" style="color: white;">Frameworks used in LNbits.</h2>
+              <h2 class="q-pb-lg" style="color: white;" data-i18n="frameworks.title">Frameworks used in LNbits.</h2>
               <br />
             </center>
           </div>
@@ -402,9 +412,9 @@
             <div class="col-12 col-md-6 q-mb-md">
               <q-card class="my-card ln-card">
                 <q-card-section>
-                  <h5>FRONTEND:</h5>
-                  <h3>Quasar <small>(VueJS)</small></h3>
-                  <p>
+                  <h5 data-i18n="frameworks.frontend.label">FRONTEND:</h5>
+                  <h3 data-i18n="frameworks.frontend.title_html" data-i18n-html="true">Quasar <small>(VueJS)</small></h3>
+                  <p data-i18n="frameworks.frontend.body">
                     Front-end framework with VueJS components for high-performance,
                     responsive websites, PWA, SSR, Mobile and Desktop apps,
                   </p>
@@ -418,9 +428,9 @@
             <div class="col-12 col-md-6 q-mb-md">
               <q-card class="my-card ln-card">
                 <q-card-section>
-                  <h5>BACKEND:</h5>
-                  <h3>FastAPI <small>(Python)</small></h3>
-                  <p>
+                  <h5 data-i18n="frameworks.backend.label">BACKEND:</h5>
+                  <h3 data-i18n="frameworks.backend.title_html" data-i18n-html="true">FastAPI <small>(Python)</small></h3>
+                  <p data-i18n="frameworks.backend.body">
                     LNbits uses FastAPI, a modern, high-performance Python API framework, that's easy to build on.
                   </p>
                   <br />
@@ -446,12 +456,13 @@
           <div class="col-lg-12">
             <div class="text-center mx-auto">
             <center>
-            <h2 class="q-pb-lg" style="color: white;">Getting started.</h2>
+            <h2 class="q-pb-lg" style="color: white;" data-i18n="connect.title">Getting started.</h2>
             </center>
 
             </div>
             <center>
-              <h3>Checkout the <a href="https://github.com/lnbits/lnbits">GitHub</a> docs,
+              <h3 data-i18n="connect.subtitle_html" data-i18n-html="true">
+                Checkout the <a href="https://github.com/lnbits/lnbits">GitHub</a> docs,
                 <a href="https://www.youtube.com/channel/UCGXU2Ae5x5K-5aKdmKqoLYg">YouTube</a> and <a
                   href="https://github.com/cryptoteun/awesome-lnbits">Awesome LNbits</a>.
               </h3>
@@ -465,20 +476,20 @@
         <div class="col">
 
           <div class="ud-info-meta">
-            <h5>LNbits Community</h5>
-            <p>LNbits has an incredible community of users and developers, exchanging ideas,
+            <h5 data-i18n="community.title">LNbits Community</h5>
+            <p data-i18n="community.body">LNbits has an incredible community of users and developers, exchanging ideas,
               helping each other, and extending the free and open-source software. </p>
             <br />
-            <p>Join the telegram group <a href="https://t.me/lnbits">t.me/lnbits</a></p>
+            <p data-i18n="community.join_html" data-i18n-html="true">Join the telegram group <a href="https://t.me/lnbits">t.me/lnbits</a></p>
           </div>
         </div>
         <div class="col">
 
           <div class="ud-info-meta">
-            <h5>lnbits.com</h5>
-            <p>This server is maintained by a few LNbits developers as an example demo of the software.</p>
+            <h5 data-i18n="site.title">lnbits.com</h5>
+            <p data-i18n="site.body">This server is maintained by a few LNbits developers as an example demo of the software.</p>
             <br />
-            <p>Email us directly <a href="mailto:lnbits@pm.me">lnbits@pm.me</a></p>
+            <p data-i18n="site.email_html" data-i18n-html="true">Email us directly <a href="mailto:lnbits@pm.me">lnbits@pm.me</a></p>
           </div>
         </div>
       </div>
@@ -507,7 +518,7 @@
               <a href="/" class="ud-footer-logo">
                 <img src="assets/images/logo/logo.svg" alt="logo" loading="lazy" decoding="async" />
               </a>
-              <p class="ud-widget-desc">
+              <p class="ud-widget-desc" data-i18n="footer.desc">
                 Free Open-Source Lightning Accounts System with Extensions.
                 Run for yourself, for others, or as part of a stack.
                 LNbits extension framework makes building easy.
@@ -563,7 +574,9 @@
   <script src="assets/js/axios.min.js"></script>
   <script src="assets/js/moment.min.js"></script>
   <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/lang-select.js"></script>
   <script src="assets/js/saas.js"></script>
   <script src="assets/js/landing.js"></script>
 <div id="lnbits-chat-embed-root">
