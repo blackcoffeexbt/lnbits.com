@@ -1,5 +1,42 @@
 // ===== Landing page behaviors (moved from index.html) =====
 window.addEventListener("DOMContentLoaded", () => {
+  (function initHeroTextFit() {
+    const intro = document.querySelector(".ln-hero-intro");
+    const title = intro ? intro.querySelector(".ud-hero-title") : null;
+    const desc = intro ? intro.querySelector(".ud-hero-desc") : null;
+    if (!intro || !title || !desc) {
+      return;
+    }
+
+    function fitElement(element, cssVar, maxPx, minPx) {
+      document.documentElement.style.setProperty(cssVar, maxPx + "px");
+      if (window.innerWidth <= 767) {
+        document.documentElement.style.removeProperty(cssVar);
+        return;
+      }
+
+      let size = maxPx;
+      while (element.scrollWidth > element.clientWidth && size > minPx) {
+        size -= 1;
+        document.documentElement.style.setProperty(cssVar, size + "px");
+      }
+    }
+
+    function fitHeroText() {
+      fitElement(title, "--ln-hero-title-size", 57.6, 36);
+      fitElement(desc, "--ln-hero-desc-size", 48, 28);
+    }
+
+    fitHeroText();
+    window.addEventListener("resize", fitHeroText);
+
+    if (window.LNbitsI18n && typeof window.LNbitsI18n.onChange === "function") {
+      window.LNbitsI18n.onChange(() => {
+        window.requestAnimationFrame(fitHeroText);
+      });
+    }
+  })();
+
   // ==== for menu scroll
   const pageLink = document.querySelectorAll(".ud-menu-scroll");
 
@@ -44,53 +81,15 @@ window.addEventListener("DOMContentLoaded", () => {
   window.document.addEventListener("scroll", onScroll);
 
   (function initHeroRotation() {
-    const heroSlides = [
-      {
-        id: "slide1",
-        img: "assets/images/hero/bitcoin-accounts.png",
-        embedLink: "b7Ou7XtqtRI",
-        titleKey: "hero.slide1.title",
-        timeKey: "hero.slide1.time",
-        titleFallback: "User/Wallet System",
-        timeFallback: "(43 secs)"
-      },
-      {
-        id: "slide2",
-        img: "assets/images/hero/bitcoin-extensions.png",
-        embedLink: "ymq_BXN4lu0",
-        titleKey: "hero.slide2.title",
-        timeKey: "hero.slide2.time",
-        titleFallback: "50+ Extensions",
-        timeFallback: "(38 secs)"
-      },
-      {
-        id: "slide3",
-        img: "assets/images/hero/lnbits-node-management.png",
-        embedLink: "LMs4bFrvy_Y",
-        titleKey: "hero.slide3.title",
-        timeKey: "hero.slide3.time",
-        titleFallback: "Admin Tooling",
-        timeFallback: "(48 secs)"
-      },
-      {
-        id: "slide4",
-        img: "assets/images/hero/lnbits-api-sdk.png",
-        embedLink: "b1a5XshX5dA",
-        titleKey: "hero.slide4.title",
-        timeKey: "hero.slide4.time",
-        titleFallback: "Supercharged API/SDK",
-        timeFallback: "(38 secs)"
-      }
-    ];
+    const heroSlides = ["slide1", "slide2", "slide3", "slide4"];
 
     let heroIndex = 0;
     let heroTimer = null;
+    let videoDialogOpen = false;
 
-    const tiles = Array.from(document.querySelectorAll(".ln-btn-tile"));
-    const heroSlideMap = heroSlides.reduce((acc, slide, index) => {
-      acc[slide.id] = index;
-      return acc;
-    }, {});
+    const tiles = Array.from(document.querySelectorAll(".ln-bootstrap-tile"));
+    const extensionCountEls = Array.from(document.querySelectorAll("[data-extension-count]"));
+    let extensionCount = null;
 
     function t(key, fallback) {
       const i18n = window.LNbitsI18n;
@@ -102,71 +101,151 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function getHeroProxy() {
-      const root = document.querySelector("#q-app");
-      if (!root || !root.__vue_app__ || !root.__vue_app__._instance) {
-        return null;
-      }
-      return root.__vue_app__._instance.proxy || null;
+      return window.lnbitsLandingApp || null;
     }
 
-    function applyHeroSlide(index, pause) {
-      if (tiles[index]) {
-        tiles[index].dispatchEvent(new Event("mouseover", { bubbles: true }));
-        if (pause) {
-          stopHeroRotation();
-        }
-        return true;
+    function buildExtensionTitle(count) {
+      const fallback = count ? count + " Extensions" : "50+ Extensions";
+      const baseTitle = t("hero.slide2.title", "50+ Extensions");
+      if (!count) {
+        return baseTitle || fallback;
       }
-      const vm = getHeroProxy();
-      if (!vm || !heroSlides[index]) {
-        return false;
+      if (baseTitle && /\d+\+?/.test(baseTitle)) {
+        return baseTitle.replace(/\d+\+?/, String(count));
       }
-      const slide = heroSlides[index];
-      const title = t(slide.titleKey, slide.titleFallback);
-      const time = t(slide.timeKey, slide.timeFallback);
-      vm.slideimg = slide.img;
-      vm.embedLink = slide.embedLink;
-      vm.vidtitle = title;
-      vm.vidtime = time;
-      if (pause) {
-        stopHeroRotation();
-      }
-      return true;
+      return fallback;
     }
 
-    function startHeroRotation() {
-      if (heroTimer) {
+    function applyExtensionCount(count) {
+      if (typeof count !== "number" || count <= 0) {
         return;
       }
-      heroTimer = setInterval(() => {
-        heroIndex = (heroIndex + 1) % heroSlides.length;
-        applyHeroSlide(heroIndex, false);
-      }, 5500);
+      extensionCount = count;
+      const display = String(count);
+      extensionCountEls.forEach((el) => {
+        el.textContent = display;
+      });
+
+      const vm = getHeroProxy();
+      const title = buildExtensionTitle(count);
+      if (vm) {
+        vm.dynamicExtensionTitle = title;
+        if (vm.embedLink === "ymq_BXN4lu0") {
+          vm.vidtitle = title;
+        }
+      }
     }
 
     function stopHeroRotation() {
       if (!heroTimer) {
         return;
       }
-      clearInterval(heroTimer);
+      clearTimeout(heroTimer);
       heroTimer = null;
+    }
+
+    function applyHeroSlide(index, pause) {
+      if (videoDialogOpen) {
+        if (pause) {
+          stopHeroRotation();
+        }
+        return true;
+      }
+      const vm = getHeroProxy();
+      const slideId = heroSlides[index];
+      if (!vm || !slideId) {
+        return false;
+      }
+      if (slideId === "slide2") {
+        vm.dynamicExtensionTitle = vm.dynamicExtensionTitle || buildExtensionTitle(extensionCount);
+      }
+      vm.activateHeroSlide(slideId);
+      if (pause) {
+        stopHeroRotation();
+      }
+      return true;
+    }
+
+    function queueHeroRotation() {
+      if (heroTimer || videoDialogOpen) {
+        return;
+      }
+      heroTimer = setTimeout(() => {
+        heroTimer = null;
+        if (videoDialogOpen) {
+          return;
+        }
+        heroIndex = (heroIndex + 1) % heroSlides.length;
+        applyHeroSlide(heroIndex, false);
+        queueHeroRotation();
+      }, 5500);
+    }
+
+    function startHeroRotation() {
+      if (videoDialogOpen) {
+        return;
+      }
+      stopHeroRotation();
+      queueHeroRotation();
     }
 
     const readyCheck = setInterval(() => {
       const hasProxy = applyHeroSlide(0, false);
       if (hasProxy) {
+        if (extensionCount) {
+          applyExtensionCount(extensionCount);
+        }
         clearInterval(readyCheck);
         startHeroRotation();
       }
     }, 200);
 
-    tiles.forEach((tile) => {
-      tile.addEventListener("mouseenter", () => stopHeroRotation());
-      tile.addEventListener("mouseleave", () => startHeroRotation());
+    tiles.forEach((tile, index) => {
+      const setCurrentIndex = () => {
+        heroIndex = index;
+      };
+      tile.addEventListener("mouseenter", () => {
+        setCurrentIndex();
+        stopHeroRotation();
+      });
+      tile.addEventListener("focus", () => {
+        setCurrentIndex();
+        stopHeroRotation();
+      });
+      tile.addEventListener("click", setCurrentIndex);
+      tile.addEventListener("mouseleave", () => {
+        if (!videoDialogOpen) {
+          startHeroRotation();
+        }
+      });
+      tile.addEventListener("blur", () => {
+        if (!videoDialogOpen) {
+          startHeroRotation();
+        }
+      });
+    });
+
+    window.addEventListener("lnbits-video-dialog", (event) => {
+      videoDialogOpen = Boolean(event && event.detail && event.detail.isOpen);
+      if (videoDialogOpen) {
+        stopHeroRotation();
+        return;
+      }
+      startHeroRotation();
+    });
+
+    window.addEventListener("lnbits-extension-count", (event) => {
+      const count = event && event.detail ? Number(event.detail.count) : NaN;
+      if (!Number.isNaN(count)) {
+        applyExtensionCount(count);
+      }
     });
 
     if (window.LNbitsI18n && typeof window.LNbitsI18n.onChange === "function") {
       window.LNbitsI18n.onChange(() => {
+        if (extensionCount) {
+          applyExtensionCount(extensionCount);
+        }
         applyHeroSlide(heroIndex, false);
       });
     }
@@ -184,6 +263,10 @@ window.addEventListener("DOMContentLoaded", () => {
       forks: null,
       contributors: null
     };
+    const cacheTtlMs = 30 * 60 * 1000;
+    const repoCacheKey = "lnbits-github-repo-cache";
+    const contributorsCacheKey = "lnbits-github-contributors-cache";
+    let contributorsRendered = false;
 
     function formatCount(value) {
       if (typeof value !== "number") {
@@ -231,6 +314,11 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderContributors(items) {
+      if (contributorsRendered || !Array.isArray(items) || items.length === 0) {
+        return;
+      }
+      contributorsRendered = true;
+
       const fragment = document.createDocumentFragment();
       items.forEach((item) => {
         const link = document.createElement("a");
@@ -317,44 +405,246 @@ window.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    fetch("https://api.github.com/repos/lnbits/lnbits", {
-      headers: {
-        "Accept": "application/vnd.github+json"
-      }
-    })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((repo) => {
-        if (!repo) {
-          return;
+    function loadCache(key) {
+      try {
+        const raw = window.localStorage.getItem(key);
+        if (!raw) {
+          return null;
         }
-        setMetricsText(repo.stargazers_count, repo.forks_count);
-      })
-      .catch(() => {
-        // Silently fail if rate limited or offline.
-      });
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") {
+          return null;
+        }
+        return parsed;
+      } catch (_error) {
+        return null;
+      }
+    }
 
-    fetch("https://api.github.com/repos/lnbits/lnbits/contributors?per_page=100", {
-      headers: {
-        "Accept": "application/vnd.github+json"
+    function saveCache(key, data) {
+      try {
+        window.localStorage.setItem(key, JSON.stringify({
+          timestamp: Date.now(),
+          data: data
+        }));
+      } catch (_error) {
+        // Ignore storage failures.
       }
-    })
-      .then((res) => (res.ok ? res.json() : []))
-      .then((data) => {
-        const contributors = Array.isArray(data) ? data : [];
-        if (contributors.length === 0) {
-          return;
+    }
+
+    function isFresh(entry) {
+      return !!entry &&
+        typeof entry.timestamp === "number" &&
+        (Date.now() - entry.timestamp) < cacheTtlMs;
+    }
+
+    function applyRepoData(repo) {
+      if (!repo) {
+        return;
+      }
+      setMetricsText(repo.stargazers_count, repo.forks_count);
+    }
+
+    function applyContributorsData(data) {
+      const contributors = Array.isArray(data) ? data : [];
+      if (contributors.length === 0) {
+        return;
+      }
+      setMetricsText(undefined, undefined, contributors.length);
+      renderContributors(contributors);
+    }
+
+    const cachedRepo = loadCache(repoCacheKey);
+    const cachedContributors = loadCache(contributorsCacheKey);
+
+    if (cachedRepo && cachedRepo.data) {
+      applyRepoData(cachedRepo.data);
+    }
+
+    if (cachedContributors && cachedContributors.data) {
+      applyContributorsData(cachedContributors.data);
+    }
+
+    if (!isFresh(cachedRepo)) {
+      fetch("https://api.github.com/repos/lnbits/lnbits", {
+        headers: {
+          "Accept": "application/vnd.github+json"
         }
-        setMetricsText(undefined, undefined, contributors.length);
-        renderContributors(contributors);
       })
-      .catch(() => {
-        // Silently fail if rate limited or offline.
-      });
+        .then((res) => (res.ok ? res.json() : null))
+        .then((repo) => {
+          if (!repo) {
+            return;
+          }
+          saveCache(repoCacheKey, repo);
+          applyRepoData(repo);
+        })
+        .catch(() => {
+          if (cachedRepo && cachedRepo.data) {
+            applyRepoData(cachedRepo.data);
+          }
+        });
+    }
+
+    if (!isFresh(cachedContributors)) {
+      fetch("https://api.github.com/repos/lnbits/lnbits/contributors?per_page=100", {
+        headers: {
+          "Accept": "application/vnd.github+json"
+        }
+      })
+        .then((res) => (res.ok ? res.json() : []))
+        .then((data) => {
+          const contributors = Array.isArray(data) ? data : [];
+          if (contributors.length === 0) {
+            return;
+          }
+          saveCache(contributorsCacheKey, contributors);
+          applyContributorsData(contributors);
+        })
+        .catch(() => {
+          if (cachedContributors && cachedContributors.data) {
+            applyContributorsData(cachedContributors.data);
+          }
+        });
+    }
 
     if (window.LNbitsI18n && typeof window.LNbitsI18n.onChange === "function") {
       window.LNbitsI18n.onChange(() => {
         setMetricsText(metricsState.stars, metricsState.forks, metricsState.contributors);
       });
     }
+  })();
+
+  (function initExtensionsWall() {
+    const track = document.getElementById("ln-extensions-track");
+    if (!track) {
+      return;
+    }
+
+    const sourceUrl = "https://raw.githubusercontent.com/lnbits/lnbits-extensions/main/extensions.json";
+
+    function normalizeVersion(version) {
+      if (!version) {
+        return "0.0.0";
+      }
+      return String(version).replace(/^v/i, "").trim();
+    }
+
+    function compareVersions(a, b) {
+      const pa = normalizeVersion(a).split(".").map(Number);
+      const pb = normalizeVersion(b).split(".").map(Number);
+
+      for (let i = 0; i < Math.max(pa.length, pb.length); i += 1) {
+        const na = pa[i] || 0;
+        const nb = pb[i] || 0;
+        if (na !== nb) {
+          return na - nb;
+        }
+      }
+
+      return 0;
+    }
+
+    function pickLatestExtensions(list) {
+      const byId = {};
+      list.forEach((item) => {
+        if (!item || !item.id) {
+          return;
+        }
+
+        const current = byId[item.id];
+        if (!current || compareVersions(item.version, current.version) >= 0) {
+          byId[item.id] = item;
+        }
+      });
+
+      return Object.keys(byId).map((key) => byId[key]);
+    }
+
+    function buildCard(ext) {
+      const card = document.createElement("a");
+      card.className = "ln-extension-card";
+      card.href = "https://extensions.lnbits.com/" + encodeURIComponent(ext.id);
+      card.target = "_blank";
+      card.rel = "noopener noreferrer";
+
+      const icon = document.createElement("div");
+      icon.className = "ln-extension-card__icon";
+      if (ext.icon) {
+        const img = document.createElement("img");
+        img.src = ext.icon;
+        img.alt = ext.name || ext.id;
+        img.loading = "lazy";
+        img.decoding = "async";
+        icon.appendChild(img);
+      } else {
+        icon.textContent = (ext.name || ext.id || "?").charAt(0).toUpperCase();
+      }
+
+      const text = document.createElement("div");
+      text.className = "ln-extension-card__text";
+
+      const name = document.createElement("div");
+      name.className = "ln-extension-card__name";
+      name.textContent = ext.name || ext.id;
+
+      text.appendChild(name);
+      card.appendChild(icon);
+      card.appendChild(text);
+
+      return card;
+    }
+
+    function buildTrack(extensions) {
+      const inner = document.createElement("div");
+      inner.className = "ln-extensions-wall__grid";
+      extensions.forEach((ext) => {
+        inner.appendChild(buildCard(ext));
+      });
+
+      const clone = inner.cloneNode(true);
+      track.innerHTML = "";
+      track.appendChild(inner);
+      track.appendChild(clone);
+
+      const cardCount = extensions.length || 1;
+      const duration = Math.max(28, Math.min(90, Math.ceil(cardCount / 2) * 6));
+      track.style.setProperty("--scroll-duration", duration + "s");
+      document.documentElement.style.setProperty("--extensions-scroll-duration", duration + "s");
+      window.dispatchEvent(new CustomEvent("extensions-scroll-duration", { detail: { duration } }));
+      window.dispatchEvent(new CustomEvent("lnbits-extension-count", { detail: { count: extensions.length } }));
+    }
+
+    function loadExtensions() {
+      fetch(sourceUrl)
+        .then((resp) => resp.json())
+        .then((data) => {
+          const list = data && data.extensions ? data.extensions : [];
+          const unique = pickLatestExtensions(list);
+          unique.sort((a, b) => {
+            const an = (a.name || a.id || "").toLowerCase();
+            const bn = (b.name || b.id || "").toLowerCase();
+            return an.localeCompare(bn);
+          });
+
+          const padded = unique.slice();
+          if (padded.length) {
+            const remainder = padded.length % 4;
+            if (remainder !== 0) {
+              const needed = 4 - remainder;
+              for (let i = 0; i < needed; i += 1) {
+                padded.push(padded[i % padded.length]);
+              }
+            }
+          }
+
+          buildTrack(padded);
+        })
+        .catch(() => {
+          track.innerHTML = "";
+        });
+    }
+
+    loadExtensions();
   })();
 });

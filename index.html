@@ -11,6 +11,24 @@
   <!-- Primary Meta Tags -->
   <meta name="title" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.title" />
   <meta name="description" content="LNbits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.description" />
+  <link rel="canonical" href="https://lnbits.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://lnbits.com/" />
+  <link rel="alternate" hreflang="en" href="https://lnbits.com/" />
+  <link rel="alternate" hreflang="es" href="https://lnbits.com/?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://lnbits.com/?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://lnbits.com/?lang=de" />
+  <link rel="alternate" hreflang="pt" href="https://lnbits.com/?lang=pt" />
+  <link rel="alternate" hreflang="it" href="https://lnbits.com/?lang=it" />
+  <link rel="alternate" hreflang="nl" href="https://lnbits.com/?lang=nl" />
+  <link rel="alternate" hreflang="ru" href="https://lnbits.com/?lang=ru" />
+  <link rel="alternate" hreflang="zh" href="https://lnbits.com/?lang=zh" />
+  <link rel="alternate" hreflang="ja" href="https://lnbits.com/?lang=ja" />
+  <link rel="alternate" hreflang="ko" href="https://lnbits.com/?lang=ko" />
+  <link rel="alternate" hreflang="ar" href="https://lnbits.com/?lang=ar" />
+  <link rel="preload" as="image" href="assets/images/logo/logo.svg" />
+  <link rel="preload" as="image" href="assets/images/products/saas_small.webp" />
+  <link rel="preload" as="image" href="assets/images/products/lnbitsbox_small.webp" />
+  <link rel="preload" as="image" href="assets/images/products/github_small.webp" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -25,6 +43,33 @@
   <meta property="twitter:title" content="LNBits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.twitter_title" />
   <meta property="twitter:description" content="LNBits - Free Open Source Bitcoin Lightning Wallet Accounts System" data-i18n-attr="content:meta.twitter_description" />
   <meta property="twitter:image" content="https://raw.githubusercontent.com/lnbits/lnbits.com/refs/heads/main/assets/images/thumb.png" />
+  <script>
+    (function () {
+      var supported = ["en", "es", "fr", "de", "pt", "it", "nl", "ru", "zh", "ja", "ko", "ar"];
+      var defaultLang = "en";
+      var params = new URLSearchParams(window.location.search);
+      var requested = params.get("lang");
+      var lang = supported.indexOf(requested) !== -1 ? requested : defaultLang;
+      var canonicalUrl = lang === defaultLang ? "https://lnbits.com/" : "https://lnbits.com/?lang=" + lang;
+
+      document.documentElement.lang = lang;
+
+      var canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) {
+        canonical.href = canonicalUrl;
+      }
+
+      var ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) {
+        ogUrl.setAttribute("content", canonicalUrl);
+      }
+
+      var twitterUrl = document.querySelector('meta[property="twitter:url"]');
+      if (twitterUrl) {
+        twitterUrl.setAttribute("content", canonicalUrl);
+      }
+    })();
+  </script>
 
   <!--====== Favicon Icon ======-->
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/svg" />
@@ -49,8 +94,8 @@
           <div class="col-lg-12">
             <nav class="navbar navbar-expand-lg">
               <a class="navbar-brand" href="/">
-                <img src="assets/images/logo/logo.svg" class="gt-sm" style="width: 180px" alt="Logo" />
-                <img src="assets/images/logo/logo.svg" class="lt-md q-pt-sm" style="width: 100px" alt="Logo" />
+                <img src="assets/images/logo/logo.svg" class="gt-sm ln-brand-logo" alt="Logo" width="180" height="54" fetchpriority="high" decoding="async" />
+                <img src="assets/images/logo/logo.svg" class="lt-md q-pt-sm ln-brand-logo ln-brand-logo--mobile" alt="Logo" width="100" height="30" fetchpriority="high" decoding="async" />
               </a>
               <div class="navbar-collapse" id="mainMenu">
                 <ul id="nav" class="navbar-nav mx-auto">
@@ -58,10 +103,13 @@
                     <a class="ud-menu-scroll" href="#extensions" data-i18n="nav.extensions">Extensions</a>
                   </li>
                   <li class="nav-item">
-                    <a class="ud-menu-scroll" href="#frameworks" data-i18n="nav.frameworks">Frameworks</a>
+                    <a class="ud-menu-scroll" href="#bootstrap" data-i18n="nav.connect">Features</a>
                   </li>
                   <li class="nav-item">
-                    <a class="ud-menu-scroll" href="#connect" data-i18n="nav.connect">Connect</a>
+                    <a href="https://docs.lnbits.com" data-i18n="nav.docs">Docs</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://shop.lnbits.com" data-i18n="nav.store">Store</a>
                   </li>
                   <li class="nav-item">
                     <a href="https://news.lnbits.com/" title="LNbits news" data-i18n="nav.news" data-i18n-attr="title:nav.news_title">News</a>
@@ -85,8 +133,8 @@
               <q-btn no-caps type="a" href="https://github.com/lnbits/lnbits#lnbits" rounded outline color="white" class="ln-btn-outline">
                 <div>
                   <span data-i18n="button.github">Github</span>
-                  <q-icon size="md">
-                    <img src="assets/images/github_white.png" style="width: 24px; height: 24px;" loading="lazy" decoding="async">
+                  <q-icon size="md" class="gt-xs">
+                    <img src="assets/images/github_white.png" style="width: 24px; height: 24px;" width="30" height="30" loading="lazy" decoding="async">
                   </q-icon>
                 </div>
                 <q-tooltip data-i18n="tooltip.github">Checkout the repo</q-tooltip>
@@ -110,171 +158,119 @@
     </header>
     <!-- ====== Header End ====== -->
 
-    <!-- ====== Hero Start ====== -->
-    <section class="ud-hero" id="home">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="ud-hero-content">
-              <h1 class="ud-hero-title" style="margin-bottom: 0px">
-                <span data-i18n="hero.title">The world's most powerful suite of bitcoin tools.</span>
-              </h1>
-              <p class="ud-hero-desc mb-1">
-                <span data-i18n="hero.subtitle">Run for yourself, for others, or as part of a stack.</span>
-              </p>
-
+    <div class="ln-landing-fold">
+      <!-- ====== Hero Start ====== -->
+      <section class="ud-hero" id="home">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="ud-hero-content ln-hero-intro">
+                <h1 class="ud-hero-title">
+                  <span data-i18n="hero.title">The world's most powerful suite of bitcoin tools.</span>
+                </h1>
+                <p class="ud-hero-desc mb-1">
+                  <span data-i18n="hero.subtitle">Run for yourself, for others, or as part of a stack.</span>
+                </p>
+              </div>
             </div>
-            <div class="q-pb-lg flex justify-center">
-              <q-btn
-              no-caps
-                text-color="black"
-                type="a"
-                href="https://my.lnbits.com"
-                size="lg"
-                class="ln-btn-primary"
-              >
-              <span data-i18n="button.launch">Launch</span>
-              <q-tooltip data-i18n="tooltip.launch">Launch your own LNbits instance</q-tooltip>
-            </q-btn>
-              <q-btn
-              no-caps
-                color="white"
-                text-color="black"
-                type="a"
-                href="https://extensions.lnbits.com"
-                class="q-ml-sm gt-sm ln-btn-outline"
-                size="lg"
-              >
-              <span data-i18n="button.extensions">Extensions</span>
-              <q-tooltip data-i18n="tooltip.extensions">Checkout the extensions in LNbits</q-tooltip>
-            </q-btn>
-            <q-btn
-            no-caps
-            color="white"
-            text-color="black"
-            type="a"
-            href="https://shop.lnbits.com"
-            class="q-ml-sm ln-btn-outline"
-            size="lg"
-            >
-            <span data-i18n="button.store">Store</span>
-            <q-tooltip data-i18n="tooltip.store">Visit the LNbits web store</q-tooltip>
-          </q-btn>
-            </div>
-            <div class="container-pic">
-              <div class="ud-hero-image">
-                <div class="img-gradient">
-                  <img :src="slideimg" alt="hero-image">
-                  </img>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="row justify-content-center align-items-end g-4">
+                <div class="col-12 col-sm-4">
+                  <a
+                    class="ln-landing-product d-flex flex-column text-center"
+                    href="https://my.lnbits.com"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      class="ln-landing-product__image img-fluid"
+                      src="assets/images/products/saas_small.webp"
+                      alt="SaaS product image"
+                      width="400"
+                      height="267"
+                      loading="eager"
+                      fetchpriority="high"
+                      decoding="async"
+                    >
+                    <div class="ln-landing-product__body">
+                      <span class="ln-landing-product__title d-block" data-i18n="products.saas.title">LNbits Hosted</span>
+                      <ul class="ln-landing-product__bullets">
+                        <li data-i18n="products.saas.bullet1">Easy</li>
+                        <li data-i18n="products.saas.bullet2">Fully managed</li>
+                        <li data-i18n="products.saas.bullet3">99.9% uptime</li>
+                      </ul>
+                    </div>
+                  </a>
                 </div>
-                <div class="centered-pic">
-                    <q-btn no-caps @click="ytpopup = true" rounded class="ln-video-btn">
-                      <div>
-                        <q-icon style="margin-bottom: -10px;" class="q-pr-sm" size="lg" name="play_arrow"></q-icon>
-                        <span v-text="vidtitle"></span>
-                        <br><small style="display: block; margin-top: -12px; text-align: left; padding-left: 45px;" v-text="vidtime"></small>
-                      </div>
-                    </q-btn>
+                <div class="col-12 col-sm-4">
+                  <a
+                    class="ln-landing-product d-flex flex-column text-center"
+                    href="https://shop.lnbits.com/product/lnbitsbox"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      class="ln-landing-product__image img-fluid"
+                      src="assets/images/products/lnbitsbox_small.webp"
+                      alt="LNbitsBox product image"
+                      width="400"
+                      height="267"
+                      loading="eager"
+                      fetchpriority="high"
+                      decoding="async"
+                    >
+                    <div class="ln-landing-product__body">
+                      <span class="ln-landing-product__title d-block" data-i18n="products.box.title">LNbits Box</span>
+                      <ul class="ln-landing-product__bullets">
+                        <li data-i18n="products.box.bullet1">Easy</li>
+                        <li data-i18n="products.box.bullet2">Runs locally</li>
+                        <li data-i18n="products.box.bullet3">Plug &amp; play hardware</li>
+                      </ul>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-12 col-sm-4">
+                  <a
+                    class="ln-landing-product d-flex flex-column text-center"
+                    href="https://github.com/lnbits/lnbits"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      class="ln-landing-product__image img-fluid"
+                      src="assets/images/products/github_small.webp"
+                      alt="Run Yourself product image"
+                      width="400"
+                      height="267"
+                      loading="eager"
+                      fetchpriority="high"
+                      decoding="async"
+                    >
+                    <div class="ln-landing-product__body">
+                      <span class="ln-landing-product__title d-block" data-i18n="products.selfhost.title">Run Yourself</span>
+                      <ul class="ln-landing-product__bullets">
+                        <li data-i18n="products.selfhost.bullet1">Advanced</li>
+                        <li data-i18n="products.selfhost.bullet2">Run anywhere</li>
+                        <li data-i18n="products.selfhost.bullet3">Complete control</li>
+                      </ul>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
-            <q-dialog v-model="ytpopup">
-              <q-card style="width: 90%; max-width: 80vw;" flat class="q-pa-none">
-                <q-card-section class="q-pa-none">
-                  <div class="video-container">
-                    <iframe
-                      :src="'https://www.youtube.com/embed/' + embedLink + '?autoplay=1&showinfo=0&rel=0&modestbranding=1'"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerpolicy="strict-origin-when-cross-origin"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                </q-card-section>
-              </q-card>
-            </q-dialog>
-
-            <center>
-              <div class="row q-mt-xl gt-sm" style="width:80%">
-                <div class="col">
-                  <q-btn
-                    @mouseover="slideimg = 'assets/images/hero/bitcoin-accounts.png'; embedLink = 'b7Ou7XtqtRI'; vidtitle = 'User/Wallet System';  vidtime = '(43 secs)'"
-                    class="ln-btn-tile"
-                    data-hero-slide="slide1">
-                    <div class="row items-center no-wrap">
-                      <div class="text-center">
-                        <span data-i18n="hero.slide1.title">User/Wallet System</span>
-                        <br />
-                        <small data-i18n="hero.slide1.subtitle" data-i18n-html="true">Fully responsive web wallet<br /></small>
-                      </div>
-
-                    </div>
-                  </q-btn>
-                </div>
-                <div class="col">
-                  <q-btn
-                    @mouseover="slideimg = 'assets/images/hero/bitcoin-extensions.png'; embedLink = 'ymq_BXN4lu0'; vidtitle = '50+ Extensions';  vidtime = '(38 secs)'"
-                    class="ln-btn-tile"
-                    data-hero-slide="slide2">
-                    <div class="row items-center no-wrap">
-                      <div class="text-center">
-                        <span data-i18n="hero.slide2.title">50+ Extensions</span>
-                        <br />
-                        <small data-i18n="hero.slide2.subtitle" data-i18n-html="true">extension framework<br /></small>
-                      </div>
-
-                    </div>
-                  </q-btn>
-                </div>
-                <div class="col">
-                  <q-btn
-                    @mouseover="slideimg = 'assets/images/hero/lnbits-node-management.png'; embedLink = 'LMs4bFrvy_Y'; vidtitle = 'Admin Tooling';  vidtime = '(48 secs)'"
-                    class="ln-btn-tile"
-                    data-hero-slide="slide3">
-                    <div class="row items-center no-wrap">
-                      <div class="text-center">
-                        <span data-i18n="hero.slide3.title">Admin Tooling</span>
-                        <br />
-                        <small data-i18n="hero.slide3.subtitle" data-i18n-html="true">For LNbits/node/users<br /></small>
-                      </div>
-
-                    </div>
-                  </q-btn>
-                </div>
-                <div class="col">
-                  <q-btn
-                    @mouseover="slideimg = 'assets/images/hero/lnbits-api-sdk.png'; embedLink = 'b1a5XshX5dA'; vidtitle = 'Supercharged API/SDK';  vidtime = '(38 secs)'"
-                    class="ln-btn-tile"
-                    data-hero-slide="slide4">
-                    <div class="row items-center no-wrap">
-                      <div class="text-center">
-                        <span data-i18n="hero.slide4.title">Supercharged API/SDK</span>
-                        <br />
-                        <small data-i18n="hero.slide4.subtitle" data-i18n-html="true">LNbits core and extensions<br /></small>
-                      </div>
-
-                    </div>
-                  </q-btn>
-                </div>
-
-              </div>
-            </center>
           </div>
         </div>
-      </div>
+      </section>
+      <!-- ====== Hero End ====== -->
 
-    </section>
-    <!-- ====== Hero End ====== -->
-
-    <section class="ln-contrib-strip">
-      <div class="container">
-        <div class="ln-contrib-label" id="ln-repo-metrics" data-i18n="contributors.label">Contributors</div>
-        <div class="ln-contrib-marquee">
-          <div class="ln-contrib-track" id="ln-contrib-track"></div>
+      <section class="ln-contrib-strip">
+        <div class="container">
+          <div class="ln-contrib-label" id="ln-repo-metrics" data-i18n="contributors.label">Contributors</div>
+          <div class="ln-contrib-marquee">
+            <div class="ln-contrib-track" id="ln-contrib-track"></div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- ====== Features Start ====== -->
     <section id="features" class="ud-features ln-section ln-section--devices">
@@ -283,17 +279,20 @@
           <div class="col-lg-12">
             <h2 class="q-pb-lg" data-i18n="features.title">Your Everything App for Payments.</h2>
             <div class="row">
-              <div class="col-7  gt-sm" style="align-items: flex-end;display: flex;">
-                <div class="row" style="align-items: flex-end;">
+              <div class="col-7 gt-sm ln-device-showcase">
+                <div class="row ln-device-showcase__row">
                   <div class="col-3">
-                    <img src="./assets/images/hero/pos.png"
-                      style="width:185px;" loading="lazy" decoding="async">
+                    <img src="./assets/images/hero/pos.webp"
+                      class="ln-device-showcase__pos"
+                      width="370"
+                      height="502"
+                      loading="lazy" decoding="async">
                   </div>
                   <div class="col-7 q-px-xs">
-                    <img src="./assets/images/hero/desktop.png" style="box-shadow: 0 0 10px #483c49;" loading="lazy" decoding="async">
+                    <img src="./assets/images/hero/desktop.webp" class="ln-device-showcase__desktop" width="900" height="511" loading="lazy" decoding="async">
                   </div>
                   <div class="col-2 q-px-xs">
-                    <img src="./assets/images/hero/webwallet.png" style="width:95px; box-shadow: 0 0 10px #483c49;" loading="lazy" decoding="async">
+                    <img src="./assets/images/hero/webwallet.webp" class="ln-device-showcase__wallet" width="190" height="366" loading="lazy" decoding="async">
                   </div>
                 </div>
 
@@ -342,9 +341,9 @@
 
 <p data-i18n="extensions.body" data-i18n-html="true">
   LNbits keeps the core minimal and powerful.
-  Everything else lives as optional extensions — so you only run what you actually need.
+  Everything else lives as optional extensions, so you only run what you actually need.
   <br />
-  Add features, remove bloat, and even build and share your own extensions.
+  Build, share, and even charge people to use your own extensions.
 </p>
 
               </div>
@@ -361,31 +360,142 @@
     </section>
     <!-- ====== About End ====== -->
 
+    <section class="ln-section ln-section--demo">
+      <div class="container">
+        <div class="row align-items-center g-4 ln-demo-row">
+          <div class="col-lg-6">
+            <div class="ln-demo-shell">
+              <div class="ln-demo-shell__top">
+                <span data-i18n="demo.request">Request</span>
+                <a class="ln-demo-shell__link" href="https://docs.lnbits.com" target="_blank" rel="noopener noreferrer">docs.lnbits.com</a>
+              </div>
+              <pre class="ln-demo-code"><code>curl -X POST https://YOUR_DOMAIN/api/v1/payments \
+  -H "X-Api-Key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "out": false,
+    "amount": 1000,
+    "memo": "Coffee"
+  }'</code></pre>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="ln-demo-copy">
+              <h2 class="q-pb-md" data-i18n="demo.title">Building on LNbits</h2>
+              <p class="ln-demo-lead" data-i18n="demo.body">
+                LNbits gives you a powerful API for apps, merchants, kiosks, and automation flows. Infinitely extendable via extension APIs.
+              </p>
+              <div class="ln-demo-metrics">
+                <div class="ln-demo-metric">
+                  <strong data-extension-count>50+</strong>
+                  <span data-i18n="demo.metric2">extensions ready to build on top</span>
+                </div>
+                <div class="ln-demo-metric">
+                  <strong>ANY</strong>
+                  <span data-i18n="demo.metric3">Lightning backend underneath</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ====== Features Start ====== -->
-    <section id="features" class="ud-features ln-section ln-section--bootstrap">
+    <section id="bootstrap" class="ud-features ln-section ln-section--bootstrap">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <center>
-            <h2 class="q-pb-lg" data-i18n="bootstrap.title">Bootstrap your lightning payments.</h2>
-            </center>
-            <div class="row">
-              <div class="col gt-sm">
-                <img src="./assets/images/hero/lightning-funding-sources.png" class="ln-funding-logos ln-funding-logos--spaced" loading="lazy" decoding="async">
+            <h2 class="q-pb-lg text-center" data-i18n="bootstrap.title">Bootstrap your bitcoin payments.</h2>
+            <div class="row align-items-start g-4">
+              <div class="col-lg-6">
+                <div class="ln-bootstrap-copy">
+                  <h6 class="q-pb-lg" data-i18n="bootstrap.subtitle" data-i18n-html="true">
+                    One API for everything.
+                    <br />Works with ANY Lightning funding source
+                  </h6>
+                  <p data-i18n="bootstrap.list_html" data-i18n-html="true">
+                    ✔️ Free and open source
+                    <br />✔️ 6 years of production use
+                    <br />✔️ New funding sources added regularly
+                    <br />✔️ NOSTR and LNURL built in: boltcards, relays, NIP05s, vouchers, and more
+                    <br />✔️ Switch funding sources without refactoring
+                    <br />✔️ Built for apps, merchants, kiosks, and automations
+                    <br />✔️ Powerful extension system for custom workflows
+                    <br />✔️ Self-hosted or managed, depending on your stack
+                    <br />✔️ Maintained by a large user and developer community
+                  </p>
+                </div>
               </div>
-              <div class="col">
-                <h6 class="q-pb-lg" data-i18n="bootstrap.subtitle" data-i18n-html="true">
-                  One API to rule them all.
-                  <br />Runs on ANY Lighting Network funding source
-                </h6>
-                <p data-i18n="bootstrap.list_html" data-i18n-html="true">
-                  ✔️ Free and open-source
-                  <br />✔️ 6 years of real world use and hardening
-                  <br />✔️ Cutting edge, with new funding sources being added regularly.
-                  <br />✔️ NOSTR and LNURL native: create boltcards, nostr relays, sell NIP05s, vouchers, etc.
-                  <br />✔️ No more refactoring code for developers; changing your funding source is trivial.
-                  <br />✔️ Eyes on the code; huge user and developer community keeping LNbits updated.
-                </p>
+              <div class="col-lg-6">
+                <div class="ln-bootstrap-showcase">
+                  <div class="ln-bootstrap-showcase__stage">
+                    <button
+                      type="button"
+                      class="ln-bootstrap-showcase__player"
+                      @click="openHeroVideo()"
+                      :aria-label="'Play ' + vidtitle + ' video'"
+                    >
+                      <img :src="slideimg" alt="LNbits video preview" width="1360" height="711">
+                      <span class="ln-bootstrap-showcase__screen"></span>
+                      <span class="ln-bootstrap-showcase__chip">
+                        <span class="ln-bootstrap-showcase__chip-icon">
+                          <q-icon size="30px" name="play_arrow"></q-icon>
+                        </span>
+                        <span class="ln-bootstrap-showcase__chip-copy">
+                          <span class="ln-bootstrap-showcase__chip-title" v-text="vidtitle"></span>
+                          <small class="ln-bootstrap-showcase__chip-time" v-text="vidtime"></small>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="ln-bootstrap-showcase__rail" aria-label="LNbits feature videos">
+                    <button
+                      type="button"
+                      class="ln-bootstrap-tile"
+                      :class="{ 'is-active': activeHeroSlide === 'slide1' }"
+                      data-hero-slide="slide1"
+                      @mouseenter="activateHeroSlide('slide1')"
+                      @focus="activateHeroSlide('slide1')"
+                      @click="activateHeroSlide('slide1')"
+                    >
+                      <span class="ln-bootstrap-tile__title" data-i18n="hero.slide1.title">User/Wallet System</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="ln-bootstrap-tile"
+                      :class="{ 'is-active': activeHeroSlide === 'slide2' }"
+                      data-hero-slide="slide2"
+                      @mouseenter="activateHeroSlide('slide2')"
+                      @focus="activateHeroSlide('slide2')"
+                      @click="activateHeroSlide('slide2')"
+                    >
+                      <span class="ln-bootstrap-tile__title" v-text="dynamicExtensionTitle">50+ Extensions</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="ln-bootstrap-tile"
+                      :class="{ 'is-active': activeHeroSlide === 'slide3' }"
+                      data-hero-slide="slide3"
+                      @mouseenter="activateHeroSlide('slide3')"
+                      @focus="activateHeroSlide('slide3')"
+                      @click="activateHeroSlide('slide3')"
+                    >
+                      <span class="ln-bootstrap-tile__title" data-i18n="hero.slide3.title">Admin Tooling</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="ln-bootstrap-tile"
+                      :class="{ 'is-active': activeHeroSlide === 'slide4' }"
+                      data-hero-slide="slide4"
+                      @mouseenter="activateHeroSlide('slide4')"
+                      @focus="activateHeroSlide('slide4')"
+                      @click="activateHeroSlide('slide4')"
+                    >
+                      <span class="ln-bootstrap-tile__title" data-i18n="hero.slide4.title">Supercharged API/SDK</span>
+                    </button>
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -393,73 +503,58 @@
           </div>
         </div>
       </div>
+      <q-dialog v-model="ytpopup" @show="notifyVideoDialog(true)" @hide="notifyVideoDialog(false)">
+        <q-card style="width: 90%; max-width: 80vw;" flat class="q-pa-none">
+          <q-card-section class="q-pa-none">
+            <div class="video-container">
+              <iframe
+                :src="'https://www.youtube.com/embed/' + embedLink + '?autoplay=1&showinfo=0&rel=0&modestbranding=1'"
+                title="YouTube video player"
+                frameborder="0"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </section>
     <!-- ====== Features End ====== -->
 
 
     <!-- ====== FAQ Start ====== -->
     <section id="connect" class="ud-faq ln-section ln-section--connect">
-      <div class="shape">
-        <img src="assets/images/faq/shape.svg" alt="shape" loading="lazy" decoding="async" />
-      </div>
+
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <div class="text-center mx-auto">
-            <center>
-            <h2 class="q-pb-lg" style="color: white;" data-i18n="connect.title">Getting started.</h2>
-            </center>
-
-            </div>
-            <center>
-              <h3 data-i18n="connect.subtitle_html" data-i18n-html="true">
-                Checkout the <a href="https://github.com/lnbits/lnbits">GitHub</a> docs,
-                <a href="https://www.youtube.com/channel/UCGXU2Ae5x5K-5aKdmKqoLYg">YouTube</a> and <a
-                  href="https://github.com/cryptoteun/awesome-lnbits">Awesome LNbits</a>.
-              </h3>
-            </center>
-          </div>
-        </div>
-      </div>
-      <br />
-      <div class="row"
-        style="max-width: 1320px;padding-right: var(--bs-gutter-x,.75rem);padding-left: var(--bs-gutter-x,.75rem);margin-right: auto;margin-left: auto;">
-        <div class="col">
-
-          <div class="ud-info-meta">
-            <h5 data-i18n="community.title">LNbits Community</h5>
-            <p data-i18n="community.body">LNbits has an incredible community of users and developers, exchanging ideas,
-              helping each other, and extending the free and open-source software. </p>
-            <br />
-            <p data-i18n="community.join_html" data-i18n-html="true">Join the telegram group <a href="https://t.me/lnbits">t.me/lnbits</a></p>
-          </div>
-        </div>
-        <div class="col">
-
-          <div class="ud-info-meta">
-            <h5 data-i18n="site.title">lnbits.com</h5>
-            <p data-i18n="site.body">This server is maintained by a few LNbits developers as an example demo of the software.</p>
-            <br />
-            <p data-i18n="site.email_html" data-i18n-html="true">Email us directly <a href="mailto:lnbits@pm.me">lnbits@pm.me</a></p>
+            <h3 class="text-center" data-i18n="connect.subtitle_html" data-i18n-html="true">
+              Checkout the <a href="https://docs.lnbits.com">docs</a>,
+              <a href="https://www.youtube.com/channel/UCGXU2Ae5x5K-5aKdmKqoLYg">YouTube</a> and <a
+                href="https://github.com/lnbits">Org</a>.
+            </h3>
           </div>
         </div>
       </div>
 
-  </div>
-
-  </section>
+      <div class="shape">
+        <img src="assets/images/faq/shape.svg" alt="shape" width="1440" height="886" loading="lazy" decoding="async" />
+      </div>
+    </section>
   <!-- ====== FAQ End ====== -->
 
   <!-- ====== Footer Start ====== -->
   <footer class="ud-footer">
     <div class="shape shape-1">
-      <img src="assets/images/footer/shape-1.png" alt="shape" loading="lazy" decoding="async" />
+      <img src="assets/images/footer/shape-1.png" alt="shape" width="570" height="492" loading="lazy" decoding="async" />
     </div>
     <div class="shape shape-2">
-      <img src="assets/images/footer/shape-2.png" alt="shape" loading="lazy" decoding="async" />
+      <img src="assets/images/footer/shape-2.png" alt="shape" width="102" height="102" loading="lazy" decoding="async" />
     </div>
     <div class="shape shape-3">
-      <img src="assets/images/footer/shape-3.png" alt="shape" loading="lazy" decoding="async" />
+      <img src="assets/images/footer/shape-3.png" alt="shape" width="372" height="264" loading="lazy" decoding="async" />
     </div>
     <div class="ud-footer-widgets">
       <div class="container">
@@ -467,7 +562,7 @@
           <div class="col-xl-5 col-lg-4 col-md-6">
             <div class="ud-widget">
               <a href="/" class="ud-footer-logo">
-                <img src="assets/images/logo/logo.svg" alt="logo" loading="lazy" decoding="async" />
+                <img src="assets/images/logo/logo.svg" alt="logo" width="496" height="148" loading="lazy" decoding="async" />
               </a>
               <p class="ud-widget-desc" data-i18n="footer.desc">
                 Free Open-Source Lightning Accounts System with Extensions.
@@ -485,7 +580,7 @@
                   <a href="https://njump.me/npub10efcj7x65z2ak6vd69xr8f2hvqwuaqrhlygl3yqa4y63hfvc02mqwzaeh3" title="LNbits on Nostr"
                     target="_blank" rel="noopener noreferrer"
                   >
-                    <img src="assets/images/icon-nostr.png" style="height:20px;width:auto" loading="lazy" decoding="async">
+                    <img src="assets/images/icon-nostr.png" class="ln-nostr-icon" width="255" height="298" loading="lazy" decoding="async">
                   </a>
                 </li>
               </ul>
@@ -496,7 +591,7 @@
           <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10">
             <div class="ud-widget">
               <div class="col">
-                <img src="./assets/images/hero/lightning-funding-sources.png" class="ln-funding-logos" loading="lazy" decoding="async">
+                <img src="./assets/images/hero/lightning-funding-sources.webp" class="ln-funding-logos" width="685" height="227" loading="lazy" decoding="async">
               </div>
             </div>
           </div>
@@ -520,137 +615,18 @@
 
 
   <!-- ====== All Javascript Files ====== -->
-  <script src="assets/js/vue.global.prod.js"></script>
-  <script src="assets/js/quasar.umd.prod.js"></script>
-  <script src="assets/js/axios.min.js"></script>
-  <script src="assets/js/moment.min.js"></script>
-  <script src="assets/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/i18n.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/lang-select.js"></script>
-  <script src="assets/js/saas.js"></script>
-  <script src="assets/js/landing.js"></script>
-  <script>
-    (function() {
-      var track = document.getElementById('ln-extensions-track');
-      if (!track) return;
-
-      var sourceUrl = 'https://raw.githubusercontent.com/lnbits/lnbits-extensions/refs/heads/main/extensions.json';
-
-      function normalizeVersion(version) {
-        if (!version) return '0.0.0';
-        return String(version).replace(/^v/i, '').trim();
-      }
-
-      function compareVersions(a, b) {
-        var pa = normalizeVersion(a).split('.').map(Number);
-        var pb = normalizeVersion(b).split('.').map(Number);
-        for (var i = 0; i < Math.max(pa.length, pb.length); i++) {
-          var na = pa[i] || 0;
-          var nb = pb[i] || 0;
-          if (na !== nb) return na - nb;
-        }
-        return 0;
-      }
-
-      function pickLatestExtensions(list) {
-        var byId = {};
-        list.forEach(function(item) {
-          if (!item || !item.id) return;
-          var current = byId[item.id];
-          if (!current) {
-            byId[item.id] = item;
-            return;
-          }
-          if (compareVersions(item.version, current.version) >= 0) {
-            byId[item.id] = item;
-          }
-        });
-        return Object.keys(byId).map(function(key) { return byId[key]; });
-      }
-
-      function buildCard(ext) {
-        var card = document.createElement('a');
-        card.className = 'ln-extension-card';
-        card.href = 'https://extensions.lnbits.com/' + encodeURIComponent(ext.id);
-        card.target = '_blank';
-        card.rel = 'noopener noreferrer';
-
-        var icon = document.createElement('div');
-        icon.className = 'ln-extension-card__icon';
-        if (ext.icon) {
-          var img = document.createElement('img');
-          img.src = ext.icon;
-          img.alt = ext.name || ext.id;
-          img.loading = 'lazy';
-          img.decoding = 'async';
-          icon.appendChild(img);
-        } else {
-          icon.textContent = (ext.name || ext.id || '?').charAt(0).toUpperCase();
-        }
-
-        var text = document.createElement('div');
-        text.className = 'ln-extension-card__text';
-
-        var name = document.createElement('div');
-        name.className = 'ln-extension-card__name';
-        name.textContent = ext.name || ext.id;
-
-        text.appendChild(name);
-
-        card.appendChild(icon);
-        card.appendChild(text);
-        return card;
-      }
-
-      function buildTrack(extensions) {
-        var inner = document.createElement('div');
-        inner.className = 'ln-extensions-wall__grid';
-        extensions.forEach(function(ext) {
-          inner.appendChild(buildCard(ext));
-        });
-
-        var clone = inner.cloneNode(true);
-        track.innerHTML = '';
-        track.appendChild(inner);
-        track.appendChild(clone);
-
-        var cardCount = extensions.length || 1;
-        var duration = Math.max(28, Math.min(90, Math.ceil(cardCount / 2) * 6));
-        track.style.setProperty('--scroll-duration', duration + 's');
-        document.documentElement.style.setProperty('--extensions-scroll-duration', duration + 's');
-        window.dispatchEvent(new CustomEvent('extensions-scroll-duration', { detail: { duration: duration } }));
-      }
-
-      fetch(sourceUrl)
-        .then(function(resp) { return resp.json(); })
-        .then(function(data) {
-          var list = (data && data.extensions) ? data.extensions : [];
-          var unique = pickLatestExtensions(list);
-          unique.sort(function(a, b) {
-            var an = (a.name || a.id || '').toLowerCase();
-            var bn = (b.name || b.id || '').toLowerCase();
-            return an.localeCompare(bn);
-          });
-          var padded = unique.slice();
-          if (padded.length) {
-            var remainder = padded.length % 4;
-            if (remainder !== 0) {
-              var needed = 4 - remainder;
-              for (var i = 0; i < needed; i++) {
-                padded.push(padded[i % padded.length]);
-              }
-            }
-          }
-          buildTrack(padded);
-        })
-        .catch(function() {
-          track.innerHTML = '';
-        });
-    })();
-  </script>
+  <script defer src="assets/js/vue.global.prod.js"></script>
+  <script defer src="assets/js/quasar.umd.prod.js"></script>
+  <script defer src="assets/js/axios.min.js"></script>
+  <script defer src="assets/js/moment.min.js"></script>
+  <script defer src="assets/js/bootstrap.bundle.min.js"></script>
+  <script defer src="assets/js/i18n.js"></script>
+  <script defer src="assets/js/main.js"></script>
+  <script defer src="assets/js/lang-select.js"></script>
+  <script defer src="assets/js/saas.js"></script>
+  <script defer src="assets/js/landing.js"></script>
 <div id="lnbits-chat-embed-root">
-  <iframe id="lnbits-chat-embed-iframe" src="https://v1.lnbits.com/chat/embed/M8oXVLKhL3RXrxnNXtBBBf?min=1&label=Chat%20to%20us" style="position:fixed;right:24px;bottom:24px;width:360px;height:56px;border:0;border-radius:12px;box-shadow:0 16px 40px rgba(0,0,0,.35);z-index:9999;transition:height .2s ease;overflow:hidden;"></iframe>
+  <iframe id="lnbits-chat-embed-iframe" class="ln-chat-embed" data-src="https://v1.lnbits.com/chat/embed/M8oXVLKhL3RXrxnNXtBBBf?min=1&label=Chat%20to%20us" title="LNbits chat" loading="lazy"></iframe>
 </div>
 <script>
   (function() {
@@ -658,6 +634,24 @@
     if (!iframe) return;
     var minHeight = 56;
     var maxHeight = 520;
+    var loaded = false;
+
+    function loadChat() {
+      if (loaded) return;
+      loaded = true;
+      iframe.src = iframe.getAttribute('data-src');
+    }
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(loadChat, { timeout: 4000 });
+    } else {
+      window.setTimeout(loadChat, 3000);
+    }
+
+    ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function(eventName) {
+      window.addEventListener(eventName, loadChat, { once: true, passive: true });
+    });
+
     window.addEventListener('message', function(event) {
       if (!event.data || event.data.source !== 'lnbits-chat-embed') return;
       iframe.style.height = event.data.open ? maxHeight + 'px' : minHeight + 'px';
