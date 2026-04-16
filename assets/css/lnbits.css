@@ -423,6 +423,19 @@ body.body--dark {
   gap: 8px;
 }
 
+.ln-header-icon-link {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 8px;
+  color: var(--ln-text) !important;
+  border-radius: 999px;
+}
+
+.ln-header-icon-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
 .ln-menu-actions {
   display: none;
 }
