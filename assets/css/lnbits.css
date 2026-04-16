@@ -423,6 +423,10 @@ body.body--dark {
   gap: 8px;
 }
 
+.ln-menu-actions {
+  display: none;
+}
+
 .ln-lang-qselect .q-field__control {
   border: none;
   border-radius: 999px;
@@ -464,6 +468,185 @@ body.body--dark {
   border-color: var(--ln-pink) !important;
   color: #ffffff !important;
   box-shadow: 0 12px 24px rgba(255, 30, 230, 0.2);
+}
+
+@media only screen and (max-width: 991px) {
+  body.ln-menu-open {
+    overflow: hidden;
+    height: 100dvh;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .navbar-brand {
+    margin-right: auto;
+  }
+
+  .navbar-toggler {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    width: 48px;
+    height: 48px;
+    margin-left: 0;
+    margin-right: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    backdrop-filter: none;
+    position: relative;
+    z-index: 10002;
+    flex: 0 0 auto;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .navbar-toggler .toggler-icon {
+    width: 26px;
+    margin: 4px 0;
+    transform-origin: center;
+  }
+
+  .navbar-toggler.active {
+    position: fixed;
+    top: 5px;
+    right: 0px;
+  }
+
+  .navbar-toggler.active .toggler-icon:nth-of-type(1) {
+    top: 5px;
+  }
+
+  .navbar-toggler.active .toggler-icon:nth-of-type(3) {
+    top: -14px;
+    
+  }
+
+  .ln-header-actions {
+    display: none;
+  }
+
+  .navbar-collapse {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding: calc(86px + env(safe-area-inset-top)) 24px calc(32px + env(safe-area-inset-bottom));
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 24px;
+    overflow-y: auto;
+    background:
+      radial-gradient(circle at top right, rgba(255, 30, 230, 0.12), transparent 30%),
+      radial-gradient(circle at left 18%, rgba(39, 215, 255, 0.08), transparent 24%),
+      rgba(6, 8, 14, 0.995);
+    backdrop-filter: blur(24px);
+    border-radius: 0;
+    box-shadow: none;
+    z-index: 10001;
+    scrollbar-width: none;
+  }
+
+  .navbar-collapse::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navbar-collapse.show,
+  .navbar-collapse.collapse.show {
+    display: flex;
+  }
+
+  .navbar-nav {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-nav .nav-item {
+    padding: 0;
+  }
+
+  .navbar-nav .nav-item > a {
+    display: block;
+    padding: 14px 0;
+    font-size: 1.125rem;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.96);
+    border-radius: 0;
+    background: transparent;
+    border: 0;
+  }
+
+  .navbar-nav .nav-item > a:hover,
+  .navbar-nav .nav-item > a:focus-visible,
+  .navbar-nav .nav-item > a.active {
+    color: #ffffff;
+    opacity: 1;
+    background: transparent;
+  }
+
+  .ln-menu-actions {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 6px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    align-self: flex-start;
+  }
+
+  .ln-menu-actions .q-btn {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+  }
+
+  .ln-menu-actions .q-btn > div {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .ln-menu-actions .ln-lang-qselect {
+    width: 100%;
+  }
+
+  .ln-menu-actions .ln-lang-qselect .q-field__control {
+    min-height: 48px;
+    padding-left: 18px;
+    margin: 16px 0;
+  }
+
+  body.ln-menu-open .ln-chat-embed {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar-collapse {
+    padding: calc(78px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .navbar-nav .nav-item > a {
+    padding: 13px 0;
+    font-size: 1.5rem;
+  }
 }
 
 .ln-section {
