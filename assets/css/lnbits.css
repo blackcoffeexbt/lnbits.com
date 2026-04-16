@@ -639,6 +639,10 @@ body.body--dark {
 }
 
 @media only screen and (max-width: 767px) {
+  .ud-header .container {
+    padding: 0;
+  }
+  
   .navbar-collapse {
     padding: calc(78px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));
   }
